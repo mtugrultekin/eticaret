@@ -4,6 +4,7 @@ import { HeroSection } from '@/components/home/hero-section'
 import { ProductCard } from '@/components/products/product-card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Truck, Shield, CreditCard, HeadphonesIcon } from 'lucide-react'
 
 // Geçici veri - gerçek uygulamada API'den gelecek
