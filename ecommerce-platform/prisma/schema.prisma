@@ -16,7 +16,7 @@ model User {
   name          String?
   password      String?
   image         String?
-  role          Role      @default(USER)
+  role          String    @default("USER")
   emailVerified DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -94,9 +94,9 @@ model Product {
   category    Category @relation(fields: [categoryId], references: [id])
   brand       String?
   weight      Float?
-  dimensions  Json?
-  tags        String[]
-  status      ProductStatus @default(ACTIVE)
+  dimensions  String?
+  tags        String
+  status      String @default("ACTIVE")
   featured    Boolean  @default(false)
   
   reviews     Review[]
@@ -133,8 +133,8 @@ model ProductVariant {
   sku         String   @unique
   price       Float
   quantity    Int      @default(0)
-  attributes  Json
-  images      String[]
+  attributes  String
+  images      String
   
   cartItems   CartItem[]
   orderItems  OrderItem[]
@@ -172,8 +172,8 @@ model Order {
   userId         String
   user           User        @relation(fields: [userId], references: [id])
   items          OrderItem[]
-  status         OrderStatus @default(PENDING)
-  paymentStatus  PaymentStatus @default(PENDING)
+  status         String @default("PENDING")
+  paymentStatus  String @default("PENDING")
   paymentMethod  String?
   paymentId      String?
   
@@ -240,7 +240,7 @@ model Review {
   comment   String
   verified  Boolean  @default(false)
   helpful   Int      @default(0)
-  images    String[]
+  images    String
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -260,31 +260,4 @@ model Wishlist {
   
   @@unique([userId, productId])
   @@map("wishlist")
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-
-enum ProductStatus {
-  ACTIVE
-  INACTIVE
-  OUT_OF_STOCK
-}
-
-enum OrderStatus {
-  PENDING
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELLED
-  REFUNDED
-}
-
-enum PaymentStatus {
-  PENDING
-  PAID
-  FAILED
-  REFUNDED
 }

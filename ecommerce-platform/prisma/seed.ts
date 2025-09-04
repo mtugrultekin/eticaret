@@ -368,7 +368,12 @@ async function main() {
 
   for (const product of allProducts) {
     await prisma.product.create({
-      data: product,
+      data: {
+        ...product,
+        tags: product.tags || 'ürün',
+        dimensions: product.dimensions || null,
+        weight: product.weight || null,
+      },
     })
   }
 
